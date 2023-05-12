@@ -1,0 +1,393 @@
+
+mkdir nxa11506@lsv15117:/opt/git$ mkdir test_vnp
+nxa11506@lsv15117:/opt/git$ cd test_vnp/
+nxa11506@lsv15117:/opt/git/test_vnp$ MANIFEST="vnp.xml" ./migrate.sh --full --work_path ./test_bsp_vnp_22.0 --release_branch release/bsp22.0
+bash: ./migrate.sh: Permission denied
+nxa11506@lsv15117:/opt/git/test_vnp$ sudo chmod a+x ./migrate.sh 
+[sudo] password for nxa11506: 
+nxa11506@lsv15117:/opt/git/test_vnp$ 
+nxa11506@lsv15117:/opt/git/test_vnp$ 
+nxa11506@lsv15117:/opt/git/test_vnp$ MANIFEST="vnp.xml" ./migrate.sh --full --work_path ./test_bsp_vnp_22.0 --release_branch release/bsp22.0
+
+=====================================================================
+WARNING: THIS SCRIPT WILL CHANGE MANIFEST AND YOCTO RECIPE FILES!
+SINCE CODE AURORA HAS BEEN SHUT DOWN, THIS SCRIPT IS NEEDED IN ORDER
+TO CHANGE THE CAF LINKS TO NXP/GITHUB CORRESPONDING LINKS.
+
+IT IS STRONGLY RECOMMENDED THAT USERS PROPERLY SAVE ALL THEIR LOCAL
+CHANGES IN REPOSITORES CLONED BY THE 'repo' TOOL BEFORE ATTEMPTING
+TO RUN THIS SCRIPT (VIA 'git commit' OR OTHER MEANS)!!!
+
+PROCEEDING FURTHER MEANS ACKNOWLEDGING THE RISKS INVOLVED AND 
+PROPERLY SAVING ALL YOUR CHANGES!
+=====================================================================
+	Proceed further?(y/n) y
+[INFO] Preparing working directory ./test_bsp_vnp_22.0/fsl-image-auto-bsp ...
+[INFO] Finished preparing working directory!
+[INFO] Performing repo init...
+Downloading Repo source from https://gerrit.googlesource.com/git-repo
+
+... A new version of repo (2.32) is available.
+... You should upgrade soon:
+    cp /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/.repo/repo/repo /home/nxa11506/bin/repo
+
+
+Your identity is: Ionut Vicovan <Ionut.Vicovan@nxp.com>
+If you want to change this, please re-run 'repo init' with --config-name
+
+repo has been initialized in /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp
+/opt/git/test_vnp
+[INFO] Finished repo init!
+[INFO] Starting presync migration!
+[INFO] Done presync migration!
+[INFO] Performing repo sync...
+
+... A new version of repo (2.32) is available.
+... You should upgrade soon:
+    cp /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/.repo/repo/repo /home/nxa11506/bin/repo
+
+remote: Enumerating objects: 21, done.
+remote: Counting objects: 100% (21/21), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 15 (delta 11), reused 15 (delta 11), pack-reused 0
+Fetching: 100% (9/9), done in 9m21.565s
+Updating files: 100% (5203/5203), done.
+Checking out: 100% (9/9), done in 2.218s
+repo sync has finished successfully.
+/opt/git/test_vnp
+[INFO] Finished repo sync!
+[INFO] Starting postsync migration!
+[INFO] Done postsync migration!
+nxa11506@lsv15117:/opt/git/test_vnp$ cd test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp/
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ cp ../../../../0001-meta-vnp-fix-*.* .
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ git am 0001-meta-vnp-fix-cmm-recipe-install.patch
+Applying: meta-vnp: fix cmm recipe install
+error: recipes-extended/cmm/cmm.bb: does not match index
+Patch failed at 0001 meta-vnp: fix cmm recipe install
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ git am --abort
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ patch --backup-if-mismatch -F 10 -u -p 1 -i 0001-meta-vnp-fix-cmm-recipe-install.patch 
+patching file recipes-extended/cmm/cmm.bb
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ 
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ patch --backup-if-mismatch -F 10 -u -p 1 -i 0001-meta-vnp-fix-azure-recipes.patch 
+patching file recipes-azure/azure-iot-sdk-c/azure-iot-sdk-c_1.2.10.bb
+patching file recipes-azure/azure-uamqp-c/azure-uamqp-c_1.2.10.bb
+patching file recipes-azure/azure-umqtt-c/azure-umqtt-c_1.1.10.bb
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ git gui
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp$ cd ../..
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp$ . nxp-setup-alb.sh -m ls1043avnprdb
+Configuring for ls1043avnprdb and distro fsl-auto...
+
+Proprietary and third party software is subject to agreement and compliance
+with, NXP's End User License Agreement. To have the right to use these
+binaries in your images, you must read and accept the following terms.  If
+there are conflicting terms embedded in the software, the terms embedded in
+the Software will control.
+
+In all cases,  open source software is licensed under the terms of the
+applicable open source license(s), such as the BSD License, Apache License or
+the GNU Lesser General Public License.  Your use of the open source software
+is subject to the terms of each applicable license.  You must agree to the
+terms of each applicable license, or you cannot use the open source software.
+
+LA_OPT_BASE_LICENSE v20 June 2017
+
+IMPORTANT.  Read the following NXP Software License Agreement 
+(“Agreement”) completely.    By selecting the “I Accept” button at the end of 
+this page, you indicate that you accept the terms of the Agreement and you 
+acknowledge that you have the authority, for yourself or on behalf of your 
+company, to bind your company to these terms.  You may then download or install 
+the file. 
+
+NXP SOFTWARE LICENSE AGREEMENT
+
+This is a legal agreement between you, as an authorized representative of your 
+employer, or if you have no employer, as an individual (together “you”), and 
+NXP B.V. (“NXP”).  It concerns your rights to use the software identified in 
+the Software Content Register and provided to you in binary or source code form 
+and any accompanying written materials (the “Licensed Software”). The Licensed 
+Software may include any updates or error corrections or documentation relating 
+to the Licensed Software provided to you by NXP under this License. In 
+consideration for NXP allowing you to access the Licensed Software, you are 
+agreeing to be bound by the terms of this Agreement. If you do not agree to all 
+of the terms of this Agreement, do not download or install the Licensed Software. 
+If you change your mind later, stop using the Licensed Software and delete all 
+copies of the Licensed Software in your possession or control. Any copies of the 
+Licensed Software that you have already distributed, where permitted, and do not 
+destroy will continue to be governed by this Agreement. Your prior use will also 
+continue to be governed by this Agreement.
+
+1.                       DEFINITIONS
+
+1.1. For NXP, the term “Affiliate” means (i) any Person Controlled by NXP 
+Semiconductors N.V. or (ii) any Person Controlled by any transferee of all or 
+substantially all of the assets of NXP Semiconductors N.V., where “Controlled” 
+means the direct or indirect beneficial ownership of more than fifty percent (50%) 
+of the voting stock, or decision-making authority in the event that there is no 
+voting stock, in another entity; provided, any such Person described in clause (i) 
+or (ii) shall be deemed to be an “Affiliate” only for so long as such Person is 
+
+Do you accept the EULA you just read? (y/n) y
+EULA has been accepted.
+Welcome to NXP Auto Linux BSP (Reference Distro)
+
+The Yocto Project has extensive documentation about OE including a
+reference manual which can be found at:
+    http://yoctoproject.org/documentation
+
+For more information about OpenEmbedded see their website:
+    http://www.openembedded.org/
+
+You can now run 'bitbake <target>'
+
+Targets specific to NXP:
+    fsl-image-mfgtool-initramfs
+    fsl-image-auto
+    fsl-image-base
+    fsl-image-base-fit
+    fsl-image-bluebox
+    fsl-image-blueboxbootflash
+    fsl-image-blueboxdt
+    fsl-image-blueboxls2sdfactory
+    fsl-image-fit
+    fsl-image-flash
+    fsl-image-itbflash
+    fsl-image-nfs-initramfs
+    fsl-image-sim
+    fsl-image-ubuntu-base
+    fsl-image-ubuntu
+    fsl-image-ubuntu-ros
+    fsl-image-vnp
+    fsl-image-networking
+    fsl-image-networking-full
+    fsl-toolchain
+To return to this build environment later please run:
+    . /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/SOURCE_THIS
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb$ bitbake fsl-image-vnp --runall=patch
+WARNING: Layer meta-vnp should set LAYERSERIES_COMPAT_meta-vnp in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vnp should set LAYERSERIES_COMPAT_meta-vnp in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-alb/recipes-graphics/gpu-demos/gpu-demos.bb: Unable to get checksum for gpu-demos SRC_URI entry gpu-viv-bin-s32v234-6.2.4.p4-hardfp.run: file could not be found
+Parsing recipes: 100% |#########################################################################################| Time: 0:00:47
+Parsing of 2766 .bb files complete (0 cached, 2766 parsed). 3786 targets, 196 skipped, 1 masked, 0 errors.
+NOTE: Resolving any missing task queue dependencies
+NOTE: preferred version 2.27% of nativesdk-glibc not available (for item virtual/nativesdk-crypt)
+NOTE: versions of nativesdk-glibc available: 2.20 2.26 linaro-2.20
+NOTE: Multiple providers are available for virtual/nativesdk-crypt (nativesdk-glibc, nativesdk-libxcrypt)
+Consider defining a PREFERRED_PROVIDER entry to match virtual/nativesdk-crypt
+
+Build Configuration:
+BB_VERSION           = "1.38.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "ubuntu-18.04"
+TARGET_SYS           = "aarch64-fsl-linux"
+MACHINE              = "ls1043avnprdb"
+DISTRO               = "fsl-auto"
+DISTRO_VERSION       = "1.0"
+TUNE_FEATURES        = "aarch64"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "HEAD:fa962ec72f8a8337eaae71ab622e340f6ef56395"
+meta-oe              
+meta-multimedia      
+meta-python          
+meta-networking      
+meta-gnome           
+meta-filesystems     
+meta-webserver       
+meta-perl            
+meta-xfce            = "HEAD:8760facba1bceb299b3613b8955621ddaa3d4c3f"
+meta-virtualization  = "HEAD:ed2038c935777d1336c17989d454f4e9c95fea7f"
+meta-freescale       = "HEAD:827bda6303c9d637efb4b94727b67e1857760171"
+meta-alb             = "HEAD:2a815e4c7555db79d7d449c6459d5dae50889156"
+meta-vnp             = "HEAD:a132a935f2bda5193dbc36484f2048f3c8249299"
+meta-linaro-toolchain = "HEAD:282b47a10940c26854c1cca0ec40950192af16fc"
+meta-qoriq-demos     = "HEAD:67c91e3ea4e08f4bc48e2e24c8cefea3571d0d09"
+meta-security        = "HEAD:2160c5de874234045ba4e201a0703185b65dbae4"
+
+NOTE: Fetching uninative binary shim from http://downloads.yoctoproject.org/releases/uninative/2.3/x86_64-nativesdk-libc.tar.bz2;sha256sum=c6954563dad3c95608117c6fc328099036c832bbd924ebf5fdccb622fc0a8684
+Initialising tasks: 100% |######################################################################################| Time: 0:00:03
+Checking sstate mirror object availability: 100% |##############################################################| Time: 0:00:00
+NOTE: Executing SetScene Tasks
+NOTE: Executing RunQueue Tasks
+WARNING: icu-60.2-r0 do_fetch: Checksum mismatch for local file /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/icu4c-60_2-src.tgz
+Cleaning and trying again.
+WARNING: icu-60.2-r0 do_fetch: Renaming /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/icu4c-60_2-src.tgz to /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/icu4c-60_2-src.tgz_bad-checksum_b850b87c1182986252357e557c18fd69
+WARNING: icu-60.2-r0 do_fetch: Checksum failure encountered with download of http://download.icu-project.org/files/icu4c/60.2/icu4c-60_2-src.tgz - will attempt other sources if available
+WARNING: expat-2.2.5-r0 do_fetch: Failed to fetch URL http://downloads.sourceforge.net/expat/expat-2.2.5.tar.bz2, attempting MIRRORS if available
+WARNING: libpcre-8.41-r0 do_fetch: Failed to fetch URL https://ftp.pcre.org/pub/pcre/pcre-8.41.tar.bz2, attempting MIRRORS if available
+WARNING: popt-1.16-r3 do_fetch: Failed to fetch URL https://fossies.org/linux/misc/popt-1.16.tar.gz, attempting MIRRORS if available
+WARNING: nbench-byte-2.2.3-r0 do_fetch: Failed to fetch URL https://fossies.org/linux/misc/nbench-byte-2.2.3.tar.gz, attempting MIRRORS if available
+WARNING: azure-c-shared-utility-1.1.10-r0 do_fetch: Failed to fetch URL git://github.com/Azure/azure-c-shared-utility.git, attempting MIRRORS if available
+WARNING: azure-uamqp-c-1.2.10-r0 do_fetch: Failed to fetch URL gitsm://github.com/Azure/azure-uamqp-c;nobranch=1, attempting MIRRORS if available
+WARNING: azure-umqtt-c-1.1.10-r0 do_fetch: Failed to fetch URL gitsm://github.com/Azure/azure-umqtt-c;nobranch=1, attempting MIRRORS if available
+ERROR: azure-uamqp-c-1.2.10-r0 do_fetch: Fetcher failure: Fetch command export PSEUDO_DISABLED=1; export ftp_proxy="http://127.0.0.1:3128"; export FTP_PROXY="http://127.0.0.1:3128"; export http_proxy="http://127.0.0.1:3128"; export HTTP_PROXY="http://127.0.0.1:3128"; export PATH="/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/sysroots-uninative/x86_64-linux/usr/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/poky/scripts:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/recipe-sysroot-native/usr/bin/aarch64-fsl-linux:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/recipe-sysroot/usr/bin/crossscripts:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/recipe-sysroot-native/usr/sbin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/recipe-sysroot-native/usr/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/recipe-sysroot-native/sbin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/recipe-sysroot-native/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/poky/bitbake/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/hosttools"; export HOME="/home/nxa11506"; LANG=C git -c core.fsyncobjectfiles=0 clone --bare --mirror git://github.com/Azure/azure-uamqp-c /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/git2/github.com.Azure.azure-uamqp-c --progress failed with exit code 128, output:
+Cloning into bare repository '/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/git2/github.com.Azure.azure-uamqp-c'...
+fatal: unable to connect to github.com:
+github.com[0: 140.82.121.3]: errno=Connection timed out
+
+
+ERROR: azure-uamqp-c-1.2.10-r0 do_fetch: Fetcher failure for URL: 'gitsm://github.com/Azure/azure-uamqp-c;nobranch=1'. Unable to fetch URL from any source.
+ERROR: azure-uamqp-c-1.2.10-r0 do_fetch: Function failed: base_do_fetch
+ERROR: azure-umqtt-c-1.1.10-r0 do_fetch: Fetcher failure: Fetch command export PSEUDO_DISABLED=1; export ftp_proxy="http://127.0.0.1:3128"; export FTP_PROXY="http://127.0.0.1:3128"; export http_proxy="http://127.0.0.1:3128"; export HTTP_PROXY="http://127.0.0.1:3128"; export PATH="/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/sysroots-uninative/x86_64-linux/usr/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/poky/scripts:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/recipe-sysroot-native/usr/bin/aarch64-fsl-linux:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/recipe-sysroot/usr/bin/crossscripts:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/recipe-sysroot-native/usr/sbin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/recipe-sysroot-native/usr/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/recipe-sysroot-native/sbin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/recipe-sysroot-native/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/poky/bitbake/bin:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/hosttools"; export HOME="/home/nxa11506"; LANG=C git -c core.fsyncobjectfiles=0 clone --bare --mirror git://github.com/Azure/azure-umqtt-c /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/git2/github.com.Azure.azure-umqtt-c --progress failed with exit code 128, output:
+Cloning into bare repository '/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/downloads/git2/github.com.Azure.azure-umqtt-c'...
+fatal: unable to connect to github.com:
+github.com[0: 140.82.121.3]: errno=Connection timed out
+
+
+ERROR: azure-umqtt-c-1.1.10-r0 do_fetch: Fetcher failure for URL: 'gitsm://github.com/Azure/azure-umqtt-c;nobranch=1'. Unable to fetch URL from any source.
+ERROR: azure-umqtt-c-1.1.10-r0 do_fetch: Function failed: base_do_fetch
+ERROR: Logfile of failure stored in: /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-uamqp-c/1.2.10-r0/temp/log.do_fetch.4051
+ERROR: Task (/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp/recipes-azure/azure-uamqp-c/azure-uamqp-c_1.2.10.bb:do_fetch) failed with exit code '1'
+ERROR: Logfile of failure stored in: /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/aarch64-fsl-linux/azure-umqtt-c/1.1.10-r0/temp/log.do_fetch.3958
+ERROR: Task (/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp/recipes-azure/azure-umqtt-c/azure-umqtt-c_1.1.10.bb:do_fetch) failed with exit code '1'
+WARNING: fmlib-git-r1 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/fmlib;nobranch=1, attempting MIRRORS if available
+WARNING: openssl-qoriq-1.0.2l-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/openssl;nobranch=1, attempting MIRRORS if available
+WARNING: vlan-1.9-r0 do_fetch: Failed to fetch URL http://vlan.sourcearchive.com/downloads/1.9-3ubuntu9/vlan_1.9.orig.tar.gz, attempting MIRRORS if available
+WARNING: fci-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/fci;nobranch=1, attempting MIRRORS if available
+WARNING: aws-cloudlogger-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/cloud-datalogger;nobranch=1, attempting MIRRORS if available
+WARNING: dpa-app-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/dpa-app;nobranch=1, attempting MIRRORS if available
+WARNING: libcli-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/libcli;nobranch=1, attempting MIRRORS if available
+WARNING: cmm-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/cmm;nobranch=1, attempting MIRRORS if available
+
+Second Keyboard Interrupt, stopping...
+
+
+Summary: 2 tasks failed:
+  /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp/recipes-azure/azure-uamqp-c/azure-uamqp-c_1.2.10.bb:do_fetch
+  /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/sources/meta-vnp/recipes-azure/azure-umqtt-c/azure-umqtt-c_1.1.10.bb:do_fetch
+Summary: There were 21 WARNING messages shown.
+Summary: There were 6 ERROR messages shown, returning a non-zero exit code.
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb$ 
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb$ bitbake fsl-image-vnp --runall=patch
+WARNING: Layer meta-vnp should set LAYERSERIES_COMPAT_meta-vnp in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vnp should set LAYERSERIES_COMPAT_meta-vnp in its conf/layer.conf file to list the core layer names it is compatible with.
+Loading cache: 100% |###########################################################################################| Time: 0:00:01
+Loaded 3786 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+NOTE: preferred version 2.27% of nativesdk-glibc not available (for item virtual/nativesdk-crypt)
+NOTE: versions of nativesdk-glibc available: 2.20 2.26 linaro-2.20
+NOTE: Multiple providers are available for virtual/nativesdk-crypt (nativesdk-glibc, nativesdk-libxcrypt)
+Consider defining a PREFERRED_PROVIDER entry to match virtual/nativesdk-crypt
+
+Build Configuration:
+BB_VERSION           = "1.38.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "aarch64-fsl-linux"
+MACHINE              = "ls1043avnprdb"
+DISTRO               = "fsl-auto"
+DISTRO_VERSION       = "1.0"
+TUNE_FEATURES        = "aarch64"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "HEAD:fa962ec72f8a8337eaae71ab622e340f6ef56395"
+meta-oe              
+meta-multimedia      
+meta-python          
+meta-networking      
+meta-gnome           
+meta-filesystems     
+meta-webserver       
+meta-perl            
+meta-xfce            = "HEAD:8760facba1bceb299b3613b8955621ddaa3d4c3f"
+meta-virtualization  = "HEAD:ed2038c935777d1336c17989d454f4e9c95fea7f"
+meta-freescale       = "HEAD:827bda6303c9d637efb4b94727b67e1857760171"
+meta-alb             = "HEAD:2a815e4c7555db79d7d449c6459d5dae50889156"
+meta-vnp             = "HEAD:a132a935f2bda5193dbc36484f2048f3c8249299"
+meta-linaro-toolchain = "HEAD:282b47a10940c26854c1cca0ec40950192af16fc"
+meta-qoriq-demos     = "HEAD:67c91e3ea4e08f4bc48e2e24c8cefea3571d0d09"
+meta-security        = "HEAD:2160c5de874234045ba4e201a0703185b65dbae4"
+
+Initialising tasks: 100% |######################################################################################| Time: 0:00:01
+Checking sstate mirror object availability: 100% |##############################################################| Time: 0:00:00
+NOTE: Executing SetScene Tasks
+NOTE: Executing RunQueue Tasks
+WARNING: sysstat-11.7.1-r0 do_fetch: Failed to fetch URL http://pagesperso-orange.fr/sebastien.godard/sysstat-11.7.1.tar.xz, attempting MIRRORS if available
+WARNING: ifenslave-2.9-r0 do_fetch: Failed to fetch URL git://anonscm.debian.org/collab-maint/ifenslave.git, attempting MIRRORS if available
+WARNING: sysklogd-1.5.1-r0 do_fetch: Failed to fetch URL http://www.infodrom.org/projects/sysklogd/download/sysklogd-1.5.1.tar.gz, attempting MIRRORS if available
+WARNING: libpam-1.3.0-r5 do_fetch: Failed to fetch URL http://linux-pam.org/library/Linux-PAM-1.3.0.tar.bz2, attempting MIRRORS if available
+WARNING: openssl-qoriq-1.0.2l-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/openssl;nobranch=1, attempting MIRRORS if available
+WARNING: cryptodev-qoriq-tests-1.9-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/cryptodev-linux;nobranch=1, attempting MIRRORS if available
+WARNING: restool-git-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/restool;nobranch=1, attempting MIRRORS if available
+WARNING: fmc-git-r2 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/fmc;nobranch=1, attempting MIRRORS if available
+WARNING: dpdk-17.11-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/dpdk;nobranch=1, attempting MIRRORS if available
+WARNING: eth-config-git-r2 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/eth-config;nobranch=1, attempting MIRRORS if available
+WARNING: ptpd-qoriq-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/ptpd;nobranch=1, attempting MIRRORS if available
+WARNING: optee-os-qoriq-git-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/optee_os;nobranch=1, attempting MIRRORS if available
+WARNING: kernel-module-rtl8812au-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/rtl8812au;nobranch=1, attempting MIRRORS if available
+WARNING: kernel-module-ask-cdx-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/cdx;nobranch=1, attempting MIRRORS if available
+WARNING: kernel-module-ask-auto-bridge-1.0-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq-yocto-sdk/auto-bridge;nobranch=1, attempting MIRRORS if available
+WARNING: uefi-git-r0 do_fetch: Failed to fetch URL git://github.com/NXP/qoriq-uefi-binary.git;nobranch=1, attempting MIRRORS if available
+WARNING: qe-ucode-git-r0 do_fetch: Failed to fetch URL git://github.com/NXP/qoriq-qe-ucode.git;nobranch=1, attempting MIRRORS if available
+WARNING: rcw-git-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/rcw;nobranch=1, attempting MIRRORS if available
+WARNING: ppa-optee-git-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/ppa-generic.git;nobranch=1, attempting MIRRORS if available
+WARNING: fm-ucode-git-r1 do_fetch: Failed to fetch URL git://github.com/NXP/qoriq-fm-ucode.git;nobranch=1, attempting MIRRORS if available
+WARNING: cst-native-git-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/cst;nobranch=1, attempting MIRRORS if available
+WARNING: u-boot-qoriq-2017.12+fslgit-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/u-boot;nobranch=1, attempting MIRRORS if available
+WARNING: linux-qoriq-4.14-r0 do_fetch: Failed to fetch URL git://github.com/nxp-qoriq/linux;nobranch=1, attempting MIRRORS if available
+NOTE: Tasks Summary: Attempted 1040 tasks of which 253 didn't need to be rerun and all succeeded.
+
+Summary: There were 25 WARNING messages shown.
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb$ bitbake fsl-image-vnp
+WARNING: Layer meta-vnp should set LAYERSERIES_COMPAT_meta-vnp in its conf/layer.conf file to list the core layer names it is compatible with.
+WARNING: Layer meta-vnp should set LAYERSERIES_COMPAT_meta-vnp in its conf/layer.conf file to list the core layer names it is compatible with.
+Loading cache: 100% |###########################################################################################| Time: 0:00:01
+Loaded 3786 entries from dependency cache.
+NOTE: Resolving any missing task queue dependencies
+NOTE: preferred version 2.27% of nativesdk-glibc not available (for item virtual/nativesdk-crypt)
+NOTE: versions of nativesdk-glibc available: 2.20 2.26 linaro-2.20
+NOTE: Multiple providers are available for virtual/nativesdk-crypt (nativesdk-glibc, nativesdk-libxcrypt)
+Consider defining a PREFERRED_PROVIDER entry to match virtual/nativesdk-crypt
+
+Build Configuration:
+BB_VERSION           = "1.38.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "aarch64-fsl-linux"
+MACHINE              = "ls1043avnprdb"
+DISTRO               = "fsl-auto"
+DISTRO_VERSION       = "1.0"
+TUNE_FEATURES        = "aarch64"
+TARGET_FPU           = ""
+meta                 
+meta-poky            
+meta-yocto-bsp       = "HEAD:fa962ec72f8a8337eaae71ab622e340f6ef56395"
+meta-oe              
+meta-multimedia      
+meta-python          
+meta-networking      
+meta-gnome           
+meta-filesystems     
+meta-webserver       
+meta-perl            
+meta-xfce            = "HEAD:8760facba1bceb299b3613b8955621ddaa3d4c3f"
+meta-virtualization  = "HEAD:ed2038c935777d1336c17989d454f4e9c95fea7f"
+meta-freescale       = "HEAD:827bda6303c9d637efb4b94727b67e1857760171"
+meta-alb             = "HEAD:2a815e4c7555db79d7d449c6459d5dae50889156"
+meta-vnp             = "HEAD:a132a935f2bda5193dbc36484f2048f3c8249299"
+meta-linaro-toolchain = "HEAD:282b47a10940c26854c1cca0ec40950192af16fc"
+meta-qoriq-demos     = "HEAD:67c91e3ea4e08f4bc48e2e24c8cefea3571d0d09"
+meta-security        = "HEAD:2160c5de874234045ba4e201a0703185b65dbae4"
+
+Initialising tasks: 100% |######################################################################################| Time: 0:00:04
+Checking sstate mirror object availability: 100% |##############################################################| Time: 0:00:06
+NOTE: Executing SetScene Tasks
+NOTE: Executing RunQueue Tasks
+WARNING: fsl-image-vnp-1.0-r0 do_rootfs: Intentionally failing postinstall scriptlets of ['coreutils'] to defer them to first boot is deprecated. Please place them into pkg_postinst_ontarget_${PN} ().
+If deferring to first boot wasn't the intent, then scriptlet failure may mean an issue in the recipe, or a regression elsewhere.
+Details of the failure are in /opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb/tmp/work/ls1043avnprdb-fsl-linux/fsl-image-vnp/1.0-r0/temp/log.do_rootfs.
+
+WARNING: fsl-image-vnp-1.0-r0 do_rootfs: [log_check] fsl-image-vnp: found 2 warning messages in the logfile:
+[log_check] warning: %post(coreutils-8.29-r0.aarch64) scriptlet failed, exit status 1
+[log_check] WARNING: Intentionally failing postinstall scriptlets of ['coreutils'] to defer them to first boot is deprecated. Please place them into pkg_postinst_ontarget_${PN} ().
+
+NOTE: Tasks Summary: Attempted 4246 tasks of which 1045 didn't need to be rerun and all succeeded.
+
+Summary: There were 4 WARNING messages shown.
+nxa11506@lsv15117:/opt/git/test_vnp/test_bsp_vnp_22.0/fsl-image-auto-bsp/build_ls1043avnprdb$ 
