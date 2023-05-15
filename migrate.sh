@@ -4,10 +4,34 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 ##
+##
+ # Redistribution and use in source and binary forms, with or without
+ # modification, are permitted provided that the following conditions are met:
+ #   * Redistributions of source code must retain the above copyright
+ #     notice, this list of conditions and the following disclaimer.
+ #   * Redistributions in binary form must reproduce the above copyright
+ #     notice, this list of conditions and the following disclaimer in the
+ #     documentation and/or other materials provided with the distribution.
+ #   * Neither the name of the above-listed copyright holders nor the
+ #     names of any contributors may be used to endorse or promote products
+ #     derived from this software without specific prior written permission.
+ #
+ # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ # ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ # LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ # INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ # POSSIBILITY OF SUCH DAMAGE.
+##
 
 ####### Declarations #######
 
-SCRIPT_VERSION="0.2"
+SCRIPT_VERSION="0.1"
 
 # determine the operating mode of the script
 FULL_MODE="0"
@@ -17,7 +41,7 @@ HELP_MODE="0"
 VERSION_MODE="0"
 #DEBUG_MODE="0"
 DEBUG_MODE="${DEBUG_MODE:=0}"
-MANIFEST="${MANIFEST:=default.xml}"
+MANIFEST="${MANIFEST:='default.xml'}"
 
 # to be filled by commandline arguments
 WORK_PATH=""
@@ -25,7 +49,7 @@ RELEASE_BRANCH=""
 
 REPO_CMD="$(which repo)"
 PROJECT_URL="https://github.com/nxp-auto-linux/auto_yocto_bsp"
-PROJECT_DIRNAME=${PROJECT_DIRNAME:=fsl-image-auto-bsp}
+PROJECT_DIRNAME="fsl-image-auto-bsp"
 
 # presync translations
 CAF_BSP="https://source.codeaurora.org/external/autobsps32"
@@ -62,12 +86,7 @@ GIT_CAF_QORIQ_SDK="git://source.codeaurora.org/external/qoriq/qoriq-yocto-sdk/"
 GIT_CAF_IMX="git://source.codeaurora.org/external/imx/"
 GIT_CAF_SJA="git://source.codeaurora.org/external/autoivnsw/sja1110_linux"
 GIT_CAF_IPC="git://source.codeaurora.org/external/autobsps32/ipcf/ipc-shm"
-GIT_CAF_PFE="git://source.codeaurora.org/external/autobsps32/extra/pfeng"
-GIT_CAF_SMDRV="git://source.codeaurora.org/external/autobsps32/extra/sm_drv"
 GIT_CAF_BSP="git://source.codeaurora.org/external/autobsps32"
-GIT_CAF_GCC63="https://source.codeaurora.org/external/s32ds/compiler/gnu_nxp/plain/"
-URL_LXC='http://linuxcontainers.org/downloads/${BPN}-${PV}.tar.gz'
-URL_LXC_NEW='http://linuxcontainers.org/downloads/${BPN}/${BPN}-${PV}.tar.gz'
 
 declare -A POSTSYNC_DICT=(
 	["$GIT_CAF_QORIQ"]="git://github.com/nxp-qoriq/" \
@@ -76,10 +95,7 @@ declare -A POSTSYNC_DICT=(
 	["$GIT_CAF_IMX"]="git://github.com/nxp-imx/" \
 	["$GIT_CAF_SJA"]="git://github.com/nxp-archive/autoivnsw_sja1110_linux" \
 	["$GIT_CAF_IPC"]="git://github.com/nxp-auto-linux/ipc-shm" \
-	["$GIT_CAF_PFE"]="git://github.com/nxp-auto-linux/pfeng" \
-	["$GIT_CAF_SMDRV"]="git://github.com/nxp-archive/autobsps32_sm_drv" \
 	["$GIT_CAF_BSP"]="git://github.com/nxp-auto-linux" \
-	["$GIT_CAF_GCC63"]="https://raw.githubusercontent.com/nxp-auto-tools/gnu_nxp/master/" \
 )
 
 declare -a POSTSYNC_KEYS_ORDER=(
@@ -89,10 +105,7 @@ declare -a POSTSYNC_KEYS_ORDER=(
 	"$GIT_CAF_IMX"
 	"$GIT_CAF_SJA"
 	"$GIT_CAF_IPC"
-	"$GIT_CAF_PFE"
-	"$GIT_CAF_SMDRV"
 	"$GIT_CAF_BSP"
-	"$GIT_CAF_GCC63"
 )
 
 ####### Migration steps #######
@@ -174,13 +187,8 @@ repo_sync ()
 migrate_postsync ()
 {
 	echo "[INFO] Starting postsync migration!"
-
-	local filelist=($(find "$WORK_PATH/$PROJECT_DIRNAME" -type f \( -name "*.bb*" -or -name "*.inc" \) \( -path "*/meta-alb/*" -or -path "*/meta-qoriq/*" -or -path "*/meta-freescale/*" -or -path "*/meta-vnp/*" -or -path "*/meta-qoriq-demos/*" -or -path "*/meta-adas/*" \) ))
-	local gcc63="$WORK_PATH/$PROJECT_DIRNAME/sources/meta-alb/recipes-devtools/gcc/gcc-linaro-6.3-fsl.inc"
-
-	local lxc_path="dynamic-layers/virtualization-layer/recipes-containers/lxc"
-	local lxc_files=($(find "$WORK_PATH/$PROJECT_DIRNAME/sources/meta-alb" -type f \( -name "*.bbappend*" \) \( -path "*/$lxc_path/*" \) ))
-	local lxc_url=""
+	
+	local filelist=($(find "$WORK_PATH/$PROJECT_DIRNAME" -type f \( -name "*.bb*" -or -name "*.inc" \) \( -path "*/meta-alb/*" -or -path "*/meta-qoriq/*" -or -path "*/meta-freescale/*" -or -path "*/meta-vnp/*" -or -path "*/meta-qoriq-demos/*" \) ))
 
 	for file in "${filelist[@]}"
 	do
@@ -189,26 +197,7 @@ migrate_postsync ()
 			sed -i "s#${key}#${POSTSYNC_DICT[${key}]}#g" "$file"
 		done
 	done
-
-	if [ -f "$gcc63" ]
-	then
-		echo -e '\nBB_STRICT_CHECKSUM = "0"\n' >> "$gcc63"
-	fi
-
-	# Patch only the LXC recipe bbappend
-	if [ -n "${lxc_files[0]}" ]
-	then
-		lxc_str="$(grep "$URL_LXC" ${lxc_files[0]})"
-	else
-		lxc_files=("$WORK_PATH/$PROJECT_DIRNAME/sources/meta-alb/$lxc_path/lxc_%.bbappend")
-	fi
-
-	if [ -z "$lxc_str" ]
-	then
-		echo 'SRC_URI_remove = "'$URL_LXC'"' >> "${lxc_files[0]}"
-		echo 'SRC_URI += "'$URL_LXC_NEW'"' >> "${lxc_files[0]}"
-	fi
-
+	
 	echo "[INFO] Done postsync migration!"
 }
 
@@ -468,4 +457,3 @@ else
 	help_func
 	exit 0
 fi
-
