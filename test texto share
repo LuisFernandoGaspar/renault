@@ -1,2 +1,17 @@
 Esta es una prueba para compartir text en dos laps con la misma cuenta
 tipo mensageria de texto
+dejame agregar otas cositas a la prueba
+he SerDes lanes must be properly configured in U-Boot for the DPNI to function correctly.
+
+Check the SerDes configuration in the U-Boot source code (usually in the board-specific file, e.g., board/freescale/<board_name>/serdes.c).
+
+Ensure the SerDes protocol matches the hardware design (e.g., PCIe, SGMII, XFI, etc.).
+
+Use the md (memory display) command in U-Boot to inspect SerDes registers and verify the configuration.
+
+Example:
+
+bash
+Copy
+md.l <SerDes_register_address> 1
+2. Check DPNI Initialization
